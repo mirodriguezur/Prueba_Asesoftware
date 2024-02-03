@@ -7,6 +7,28 @@
 
 import Foundation
 
+public class URLSessionHTTPClient: HTTPClient {
+    private let session: URLSession
+    
+    public init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
+    private struct UnexpectedValuesRepresentation: Error {}
+    
+    public func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
+        session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                completion(.success(data, response))
+            } else {
+                completion(.failure(UnexpectedValuesRepresentation()))
+            }
+        }.resume()
+    }
+}
+
 public class RemoteListOfItemsLoader {
     private let url: URL
     private let client: HTTPClient
@@ -17,11 +39,11 @@ public class RemoteListOfItemsLoader {
     }
     
     public enum Result: Equatable {
-        case success([ItemEntity])
+        case success([Item])
         case failure(Error)
     }
     
-    public init(url: URL, client: HTTPClient) {
+    public init(url: URL, client: HTTPClient = URLSessionHTTPClient()) {
         self.url = url
         self.client = client
     }
@@ -33,7 +55,7 @@ public class RemoteListOfItemsLoader {
             
             switch result {
             case let .success(data, response):
-                if response.statusCode == 200, let listOfItems = try? JSONDecoder().decode([ItemEntity].self, from: data) {
+                if response.statusCode == 200, let listOfItems = try? JSONDecoder().decode([Item].self, from: data) {
                     completion(.success(listOfItems))
                 } else {
                     completion(.failure(.invalidData))

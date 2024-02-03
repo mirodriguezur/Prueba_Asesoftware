@@ -136,11 +136,11 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
         URL(string: "https://anyurl.com")!
     }
     
-    private func makeItem(albumId: Int = 1, id: Int = 1, title: String = "any title", url: URL = URL(string: "https://anyurl.com")!, thumbnailUrl: URL = URL(string:"https://anythumbnailurl.com")!) -> ItemEntity {
-        ItemEntity(albumId: id, id: id, title: title, url: url, thumbnailUrl: thumbnailUrl)
+    private func makeItem(albumId: Int = 1, id: Int = 1, title: String = "any title", url: URL = URL(string: "https://anyurl.com")!, thumbnailUrl: URL = URL(string:"https://anythumbnailurl.com")!) -> Item {
+        Item(albumId: id, id: id, title: title, url: url, thumbnailUrl: thumbnailUrl)
     }
     
-    private func makeJSON(item: ItemEntity) -> [String: Any] {
+    private func makeJSON(item: Item) -> [String: Any] {
         [
             "albumId": item.albumId,
             "id": item.id,

@@ -1,13 +1,13 @@
 //
-//  ItemEntity.swift
+//  Item.swift
 //  TestAsesoftware
 //
-//  Created by Michael Alexander Rodriguez Urbina on 2/02/24.
+//  Created by Michael Alexander Rodriguez Urbina on 3/02/24.
 //
 
 import Foundation
 
-public struct ItemEntity {
+public struct Item: Decodable, Equatable {
     public let albumId: Int
     public let id: Int
     public let title: String

@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+class ListOfItemsRouter {
+    static func createListOfItemsViewController() -> ListOfItemsViewController {
+        let interactor = ListOfItemsInteractor()
+        let presenter = ListOfItemsPresenter(interactor: interactor)
+        let view = ListOfItemsViewController()
+        view.presenter = presenter
+        
+        return view
+    }
+}

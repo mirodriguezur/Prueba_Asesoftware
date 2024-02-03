@@ -13,13 +13,14 @@
 		1CDF403F2B6DE3F000EC5BEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CDF403D2B6DE3F000EC5BEC /* Main.storyboard */; };
 		1CDF40412B6DE3F100EC5BEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CDF40402B6DE3F100EC5BEC /* Assets.xcassets */; };
 		1CDF40442B6DE3F100EC5BEC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CDF40422B6DE3F100EC5BEC /* LaunchScreen.storyboard */; };
-		1CDF404F2B6DE3F200EC5BEC /* TestAsesoftwareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF404E2B6DE3F200EC5BEC /* TestAsesoftwareTests.swift */; };
 		1CDF40592B6DE3F200EC5BEC /* TestAsesoftwareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40582B6DE3F200EC5BEC /* TestAsesoftwareUITests.swift */; };
 		1CDF405B2B6DE3F200EC5BEC /* TestAsesoftwareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF405A2B6DE3F200EC5BEC /* TestAsesoftwareUITestsLaunchTests.swift */; };
 		1CDF40692B6DEA7100EC5BEC /* ListOfItemsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40682B6DEA7100EC5BEC /* ListOfItemsPresenter.swift */; };
 		1CDF406B2B6DEA8400EC5BEC /* ListOfItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF406A2B6DEA8400EC5BEC /* ListOfItemsInteractor.swift */; };
 		1CDF406D2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF406C2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift */; };
 		1CDF40702B6DED7A00EC5BEC /* ItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF406F2B6DED7A00EC5BEC /* ItemEntity.swift */; };
+		1CDF40742B6DF05200EC5BEC /* RemoteListOfItemsLoaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40732B6DF05200EC5BEC /* RemoteListOfItemsLoaderTest.swift */; };
+		1CDF40762B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40752B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +50,6 @@
 		1CDF40432B6DE3F100EC5BEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CDF40452B6DE3F100EC5BEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CDF404A2B6DE3F200EC5BEC /* TestAsesoftwareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestAsesoftwareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CDF404E2B6DE3F200EC5BEC /* TestAsesoftwareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAsesoftwareTests.swift; sourceTree = "<group>"; };
 		1CDF40542B6DE3F200EC5BEC /* TestAsesoftwareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestAsesoftwareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDF40582B6DE3F200EC5BEC /* TestAsesoftwareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAsesoftwareUITests.swift; sourceTree = "<group>"; };
 		1CDF405A2B6DE3F200EC5BEC /* TestAsesoftwareUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAsesoftwareUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -57,6 +57,8 @@
 		1CDF406A2B6DEA8400EC5BEC /* ListOfItemsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfItemsInteractor.swift; sourceTree = "<group>"; };
 		1CDF406C2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfItemsRouter.swift; sourceTree = "<group>"; };
 		1CDF406F2B6DED7A00EC5BEC /* ItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEntity.swift; sourceTree = "<group>"; };
+		1CDF40732B6DF05200EC5BEC /* RemoteListOfItemsLoaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListOfItemsLoaderTest.swift; sourceTree = "<group>"; };
+		1CDF40752B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListOfItemsLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		1CDF40362B6DE3F000EC5BEC /* TestAsesoftware */ = {
 			isa = PBXGroup;
 			children = (
+				1CDF40712B6DEFC000EC5BEC /* Networking */,
 				1CDF40672B6DE94100EC5BEC /* ListOfItems */,
 				1CDF40372B6DE3F000EC5BEC /* AppDelegate.swift */,
 				1CDF40392B6DE3F000EC5BEC /* SceneDelegate.swift */,
@@ -121,7 +124,7 @@
 		1CDF404D2B6DE3F200EC5BEC /* TestAsesoftwareTests */ = {
 			isa = PBXGroup;
 			children = (
-				1CDF404E2B6DE3F200EC5BEC /* TestAsesoftwareTests.swift */,
+				1CDF40722B6DEFD900EC5BEC /* NetworkingTests */,
 			);
 			path = TestAsesoftwareTests;
 			sourceTree = "<group>";
@@ -153,6 +156,22 @@
 				1CDF406F2B6DED7A00EC5BEC /* ItemEntity.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		1CDF40712B6DEFC000EC5BEC /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1CDF40752B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		1CDF40722B6DEFD900EC5BEC /* NetworkingTests */ = {
+			isa = PBXGroup;
+			children = (
+				1CDF40732B6DF05200EC5BEC /* RemoteListOfItemsLoaderTest.swift */,
+			);
+			path = NetworkingTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +245,7 @@
 					};
 					1CDF40492B6DE3F200EC5BEC = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
 						TestTargetID = 1CDF40332B6DE3F000EC5BEC;
 					};
 					1CDF40532B6DE3F200EC5BEC = {
@@ -292,6 +312,7 @@
 				1CDF406D2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift in Sources */,
 				1CDF403C2B6DE3F000EC5BEC /* ListOfItemsViewController.swift in Sources */,
 				1CDF40382B6DE3F000EC5BEC /* AppDelegate.swift in Sources */,
+				1CDF40762B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift in Sources */,
 				1CDF403A2B6DE3F000EC5BEC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,7 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CDF404F2B6DE3F200EC5BEC /* TestAsesoftwareTests.swift in Sources */,
+				1CDF40742B6DF05200EC5BEC /* RemoteListOfItemsLoaderTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +549,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K6H8H2F87M;
@@ -537,6 +559,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.michaelrodriguez.TestAsesoftwareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestAsesoftware.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TestAsesoftware";
@@ -548,6 +571,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K6H8H2F87M;

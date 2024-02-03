@@ -25,21 +25,30 @@ public class RemoteListOfItemsLoader {
         case invalidData
     }
     
+    public enum Result: Equatable {
+        case success([ItemEntity])
+        case failure(Error)
+    }
+    
     public init(url: URL, client: HTTPClient) {
         self.url = url
         self.client = client
     }
     
-    public func load(completion: @escaping (Error) -> Void) {
-        client.get(from: url) { result in
+    public func load(completion: @escaping (Result) -> Void) {
+        client.get(from: url) { [weak self] result in
+            
+            guard self != nil else { return }
             
             switch result {
-            case let .success(_, response):
-                if response.statusCode != 200 {
-                    completion(.invalidData)
+            case let .success(data, response):
+                if response.statusCode == 200, let listOfItems = try? JSONDecoder().decode([ItemEntity].self, from: data) {
+                    completion(.success(listOfItems))
+                } else {
+                    completion(.failure(.invalidData))
                 }
             case .failure:
-                completion(.connectivity)
+                completion(.failure(.connectivity))
             }
         }
     }

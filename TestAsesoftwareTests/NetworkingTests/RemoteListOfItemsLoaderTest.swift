@@ -33,7 +33,7 @@ class HTTPClientSpy: HTTPClient {
 final class RemoteListOfItemsLoaderTest: XCTestCase {
     
     func test_load_requestListOfItemsFromURL() {
-        let url = URL(string: "https://valid-url.com")!
+        let url = makeAnyURL()
         let (sut, client) = makeSUT(url: url)
         
         sut.load() { _ in }
@@ -42,7 +42,7 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_loadTwice_requestsListOfItemsFromURL() {
-        let url = URL(string: "https://valid-url.com")!
+        let url = makeAnyURL()
         let (sut, client) = makeSUT(url: url)
         
         sut.load() { _ in }
@@ -54,28 +54,72 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     func test_load_deliversErrorWhenClientFails() {
         let (sut, client) = makeSUT()
         
-        var capturedResults = [RemoteListOfItemsLoader.Error]()
+        var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut.load() { capturedResults.append($0)
         }
         
         let clientError = NSError(domain: "Test", code: 0)
         client.complete(with: clientError)
         
-        XCTAssertEqual(capturedResults, [.connectivity])
+        XCTAssertEqual(capturedResults, [.failure(.connectivity)])
     }
     
     func test_load_deliversErrorWhenHTTPResponseIsDiferentTo200() {
         let (sut, client) = makeSUT()
-        var capturedResults = [RemoteListOfItemsLoader.Error]()
+        
+        var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut.load { capturedResults.append($0) }
         
         let statusResponseWithError = [400, 404, 500, 503]
-        
         statusResponseWithError.forEach { statusCode in
             client.complete(withStatusCode: statusCode)
-            XCTAssertEqual(capturedResults, [.invalidData])
+            XCTAssertEqual(capturedResults, [.failure(.invalidData)])
             capturedResults = []
         }
+    }
+    
+    func test_load_deliversErrorWhenResponseWithInvalidJSON(){
+        let (sut, client) = makeSUT()
+        
+        var capturedResults = [RemoteListOfItemsLoader.Result]()
+        sut.load { capturedResults.append($0)}
+        
+        let invalidJSON = Data(bytes: "invalid json", count: 0)
+        client.complete(withStatusCode: 200, data: invalidJSON)
+        
+        XCTAssertEqual(capturedResults, [.failure(.invalidData)])
+    }
+    
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+        let (sut, client) = makeSUT()
+        let item1 = makeItem()
+        let item1JSON = makeJSON(item: item1)
+        
+        let item2 = makeItem(albumId: 2, id: 2)
+        let item2JSON = makeJSON(item: item2)
+        
+        let itemsJSON = [item1JSON, item2JSON]
+        
+        var capturedResults = [RemoteListOfItemsLoader.Result]()
+        sut.load { capturedResults.append($0) }
+        
+        let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+        client.complete(withStatusCode: 200, data: json)
+        
+        XCTAssertEqual(capturedResults, [.success([item1, item2])])
+    }
+    
+    func test_load_afterTheSutHasBeenDeinitializedItShouldReturnNoResult() {
+        let client = HTTPClientSpy()
+        var sut: RemoteListOfItemsLoader? = RemoteListOfItemsLoader(url: makeAnyURL(), client: client)
+        var capturedResults = [RemoteListOfItemsLoader.Result]()
+        sut?.load { capturedResults.append($0)
+        }
+        
+        sut = nil
+        client.complete(withStatusCode: 200, data: Data(_: "[{}]".utf8))
+        
+        XCTAssertTrue(capturedResults.isEmpty)
     }
     
     //MARK: - helpers
@@ -84,6 +128,24 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
         let client = HTTPClientSpy()
         let sut =  RemoteListOfItemsLoader(url: url, client: client)
         return(sut, client)
+    }
+    
+    func makeAnyURL() -> URL {
+        URL(string: "https://anyurl.com")!
+    }
+    
+    private func makeItem(albumId: Int = 1, id: Int = 1, title: String = "any title", url: URL = URL(string: "https://anyurl.com")!, thumbnailUrl: URL = URL(string:"https://anythumbnailurl.com")!) -> ItemEntity {
+        ItemEntity(albumId: id, id: id, title: title, url: url, thumbnailUrl: thumbnailUrl)
+    }
+    
+    private func makeJSON(item: ItemEntity) -> [String: Any] {
+        [
+            "albumId": item.albumId,
+            "id": item.id,
+            "title": item.title,
+            "url": item.url.absoluteString,
+            "thumbnailUrl": item.thumbnailUrl.absoluteString
+        ]
     }
     
 }

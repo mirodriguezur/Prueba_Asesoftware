@@ -8,13 +8,17 @@
 import Foundation
 
 public struct ItemEntity: Decodable, Equatable {
-    let albumId: Int
-    let id: Int
-    let title: String
-    let url: URL
-    let thumbnailUrl: URL
-
-    private enum CodingKeys: String, CodingKey {
-        case albumId, id, title, url, thumbnailUrl
+    public let albumId: Int
+    public let id: Int
+    public let title: String
+    public let url: URL
+    public let thumbnailUrl: URL
+    
+    public init(albumId: Int, id: Int, title: String, url: URL, thumbnailUrl: URL) {
+        self.albumId = albumId
+        self.id = id
+        self.title = title
+        self.url = url
+        self.thumbnailUrl = thumbnailUrl
     }
 }

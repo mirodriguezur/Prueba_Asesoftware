@@ -32,19 +32,30 @@ class HTTPClientSpy: HTTPClient {
 
 final class RemoteListOfItemsLoaderTest: XCTestCase {
     
+    var sut: RemoteListOfItemsLoader!
+    var client: HTTPClientSpy!
+    var url: URL!
+
+    override func setUp() {
+        super.setUp()
+        url = makeAnyURL()
+        client = HTTPClientSpy()
+        sut = RemoteListOfItemsLoader(url: url, client: client)
+    }
+
+    override func tearDown() {
+        client = nil
+        sut = nil
+       super.tearDown()
+    }
+    
     func test_load_requestListOfItemsFromURL() {
-        let url = makeAnyURL()
-        let (sut, client) = makeSUT(url: url)
-        
         sut.load() { _ in }
         
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
     func test_loadTwice_requestsListOfItemsFromURL() {
-        let url = makeAnyURL()
-        let (sut, client) = makeSUT(url: url)
-        
         sut.load() { _ in }
         sut.load() { _ in }
         
@@ -52,8 +63,6 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_load_deliversErrorWhenClientFails() {
-        let (sut, client) = makeSUT()
-        
         var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut.load() { capturedResults.append($0)
         }
@@ -65,8 +74,6 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_load_deliversErrorWhenHTTPResponseIsDiferentTo200() {
-        let (sut, client) = makeSUT()
-        
         var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut.load { capturedResults.append($0) }
         
@@ -79,8 +86,6 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_load_deliversErrorWhenResponseWithInvalidJSON(){
-        let (sut, client) = makeSUT()
-        
         var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut.load { capturedResults.append($0)}
         
@@ -91,7 +96,6 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
-        let (sut, client) = makeSUT()
         let item1 = makeItem()
         let item1JSON = makeJSON(item: item1)
         
@@ -110,8 +114,6 @@ final class RemoteListOfItemsLoaderTest: XCTestCase {
     }
     
     func test_load_afterTheSutHasBeenDeinitializedItShouldReturnNoResult() {
-        let client = HTTPClientSpy()
-        var sut: RemoteListOfItemsLoader? = RemoteListOfItemsLoader(url: makeAnyURL(), client: client)
         var capturedResults = [RemoteListOfItemsLoader.Result]()
         sut?.load { capturedResults.append($0)
         }

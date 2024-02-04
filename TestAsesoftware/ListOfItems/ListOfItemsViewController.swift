@@ -2,18 +2,85 @@
 //  ListOfItemsViewController.swift
 //  TestAsesoftware
 //
-//  Created by Michael Alexander Rodriguez Urbina on 3/02/24.
+//  Created by Michael Alexander Rodriguez Urbina on 4/02/24.
 //
 
 import Foundation
 import UIKit
 
-class ListOfItemsViewController: UIViewController {
+protocol ListOfItemsViewControllerProtocol: AnyObject {
+    func update()
+}
+
+class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProtocol {
+    private var tableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.estimatedRowHeight = 120
+        table.rowHeight = UITableView.automaticDimension
+        table.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+        return table
+    }()
+
+    private var presenter: ListOfItemsPresenterInput?
     
-    var presenter: ListOfItemsPresenterInput?
+    init(presenter: ListOfItemsPresenterInput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         presenter?.onViewAppear()
     }
+
+    private func setupView() {
+            setupTableView()
+        }
+        
+        func update() {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
+extension ListOfItemsViewController: UITableViewDataSource {
+    func setupTableView() {
+        view.addSubview(tableView)
+        registerCell()
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+        tableView.dataSource = self
+    }
+        
+    func registerCell(){
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+    }
+        
+    //MARK: TableViewDelegate
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        presenter?.listOfLocalItems.count ?? 0
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier, for: indexPath) as? ItemTableViewCell,
+                let itemsModel = presenter?.listOfLocalItems[indexPath.row]
+        else { return UITableViewCell()}
+                
+        cell.setupCell(with: itemsModel)
+        return cell
+    }
 }
+

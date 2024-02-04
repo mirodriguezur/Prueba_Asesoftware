@@ -10,6 +10,7 @@
 		1C10E9972B6EA3CA006BDB4D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C10E9962B6EA3CA006BDB4D /* HTTPClient.swift */; };
 		1C10E99A2B6EB93A006BDB4D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C10E9992B6EB93A006BDB4D /* Item.swift */; };
 		1C1F0D702B6EF494008F3CE6 /* ListOfItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F0D6F2B6EF494008F3CE6 /* ListOfItemsViewController.swift */; };
+		1C81955C2B7006EE000C1D2C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81955B2B7006EE000C1D2C /* URLSessionHTTPClient.swift */; };
 		1CDF40382B6DE3F000EC5BEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40372B6DE3F000EC5BEC /* AppDelegate.swift */; };
 		1CDF403A2B6DE3F000EC5BEC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40392B6DE3F000EC5BEC /* SceneDelegate.swift */; };
 		1CDF403F2B6DE3F000EC5BEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CDF403D2B6DE3F000EC5BEC /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		1C10E9962B6EA3CA006BDB4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		1C10E9992B6EB93A006BDB4D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		1C1F0D6F2B6EF494008F3CE6 /* ListOfItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfItemsViewController.swift; sourceTree = "<group>"; };
+		1C81955B2B7006EE000C1D2C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		1CDF40342B6DE3F000EC5BEC /* TestAsesoftware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestAsesoftware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDF40372B6DE3F000EC5BEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CDF40392B6DE3F000EC5BEC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				1CDF40752B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift */,
 				1C10E9962B6EA3CA006BDB4D /* HTTPClient.swift */,
+				1C81955B2B7006EE000C1D2C /* URLSessionHTTPClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				1CDF40702B6DED7A00EC5BEC /* ItemEntity.swift in Sources */,
 				1CDF406B2B6DEA8400EC5BEC /* ListOfItemsInteractor.swift in Sources */,
 				1CDF406D2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift in Sources */,
+				1C81955C2B7006EE000C1D2C /* URLSessionHTTPClient.swift in Sources */,
 				1C10E9972B6EA3CA006BDB4D /* HTTPClient.swift in Sources */,
 				1CDF40382B6DE3F000EC5BEC /* AppDelegate.swift in Sources */,
 				1CDF40762B6DF60800EC5BEC /* RemoteListOfItemsLoader.swift in Sources */,

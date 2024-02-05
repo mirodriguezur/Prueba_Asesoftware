@@ -72,6 +72,16 @@ class DetailItemViewController: UIViewController, DetailItemViewProtocol {
         return label
     }()
     
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Eliminar", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .red
+        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let presenter: DetailItemPresenterInput
     
     init(presenter: DetailItemPresenterInput) {
@@ -98,6 +108,7 @@ class DetailItemViewController: UIViewController, DetailItemViewProtocol {
         view.addSubview(detailTitle)
         view.addSubview(detailId)
         view.addSubview(albumId)
+        view.addSubview(deleteButton)
         
         NSLayoutConstraint.activate([
             detailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -127,8 +138,17 @@ class DetailItemViewController: UIViewController, DetailItemViewProtocol {
             
             albumId.leadingAnchor.constraint(equalTo: albumIdLabel.trailingAnchor, constant: 20),
             albumId.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            albumId.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 20)
+            albumId.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 20),
+            
+            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            deleteButton.widthAnchor.constraint(equalToConstant: 200)
         ])
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func deleteButtonTapped() {
+        print("Botón Eliminar presionado")
     }
     
     //MARK: - DetailItemPresenterProtocol

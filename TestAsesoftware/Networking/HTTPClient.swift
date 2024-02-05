@@ -14,4 +14,5 @@ public enum HTTPClientResult {
 
 public protocol HTTPClient {
     func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
+    func deleteItem(from url: URL, withId itemId: Int, completion: @escaping (HTTPClientResult) -> Void)
 }

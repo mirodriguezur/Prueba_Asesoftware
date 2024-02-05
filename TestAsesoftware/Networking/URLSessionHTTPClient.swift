@@ -27,4 +27,22 @@ public class URLSessionHTTPClient: HTTPClient {
             }
         }.resume()
     }
+    
+    public func deleteItem(from url: URL, withId itemId: Int, completion: @escaping (HTTPClientResult) -> Void) {
+        let itemId = "\(itemId)"
+        let completeUrl = url.absoluteString + itemId
+        
+        var request = URLRequest(url: URL(string: completeUrl)!)
+        request.httpMethod = "DELETE"
+        
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                completion(.success(data, response))
+            } else {
+                completion(.failure(UnexpectedValuesRepresentation()))
+            }
+        }.resume()
+    }
 }

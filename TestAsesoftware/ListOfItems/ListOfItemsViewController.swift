@@ -12,6 +12,7 @@ protocol ListOfItemsViewControllerProtocol: AnyObject {
     func update()
     func showSaveCacheAlert()
     func showCheckCacheAlert()
+    func showRequestAlert()
 }
 
 class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProtocol {
@@ -40,6 +41,10 @@ class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProt
         super.viewDidLoad()
         setupView()
         presenter?.onViewAppear()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     private func setupView() {
@@ -52,22 +57,45 @@ class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProt
         }
     }
     
+    @objc func refreshData() {
+        self.presenter?.updateTable(completion: {
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
+            }
+        })
+    }
+    
     func showSaveCacheAlert() {
-        let alert = UIAlertController(title: "Error", message: "Algo paso al intentar guardar en cache la información, vuelva a intentar", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "Algo paso al intentar guardar en cache la información, vuelva a intentar", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func showCheckCacheAlert() {
-        let alert = UIAlertController(title: "Error", message: "No se puedo consultar la base de datos, vuelva a intentarlo", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "No se puedo consultar la base de datos, vuelva a intentarlo", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func showRequestAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "Falló intento de conexión, vuelva a intentarlo", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

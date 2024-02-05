@@ -11,9 +11,12 @@ import Kingfisher
 
 protocol DetailItemViewProtocol: AnyObject {
     func update(with item: ItemEntity)
+    func showErrorAlert()
+    func showSucessAlert()
 }
 
 class DetailItemViewController: UIViewController, DetailItemViewProtocol {
+    
     let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -148,7 +151,29 @@ class DetailItemViewController: UIViewController, DetailItemViewProtocol {
     }
     
     @objc func deleteButtonTapped() {
-        print("Botón Eliminar presionado")
+        presenter.handleDeleteButtonTapped()
+    }
+    
+    func showErrorAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "No se pudo eliminar el item, vuelva a intentarlo", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func showSucessAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Elemento eliminado", message: "Vuelva actualizar el listado del menú principal para visualizar sus cambios", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     //MARK: - DetailItemPresenterProtocol

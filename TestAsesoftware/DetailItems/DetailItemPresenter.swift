@@ -9,6 +9,7 @@ import Foundation
 
 protocol DetailItemPresenterInput {
     func onViewAppear()
+    func handleDeleteButtonTapped()
 }
 
 class DetailItemPresenter: DetailItemPresenterInput {
@@ -25,4 +26,14 @@ class DetailItemPresenter: DetailItemPresenterInput {
         view?.update(with: item)
     }
     
+    func handleDeleteButtonTapped() {
+        interactor.requestDeleteItem(itemId: item.id) { [weak self] wasSuccesful in
+            guard let self = self else { return }
+            guard wasSuccesful else {
+                self.view?.showErrorAlert()
+                return
+            }
+            self.view?.showSucessAlert()
+        }
+    }
 }

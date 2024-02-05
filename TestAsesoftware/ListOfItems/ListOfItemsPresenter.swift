@@ -11,6 +11,7 @@ protocol ListOfItemsPresenterInput {
     var listOfLocalItems: [ItemEntity] { get }
     func onViewAppear()
     func handleCellSelected(with item: ItemEntity)
+    func updateTable(completion: @escaping () -> Void)
 }
 
 class ListOfItemsPresenter: ListOfItemsPresenterInput {
@@ -41,8 +42,8 @@ class ListOfItemsPresenter: ListOfItemsPresenterInput {
                         }
                         self.view?.update()
                         break
-                    default:
-                        break
+                    case let .failure(error):
+                        self.view?.showRequestAlert()
                     }
                 }
             case let .found(item: items):
@@ -50,6 +51,26 @@ class ListOfItemsPresenter: ListOfItemsPresenterInput {
                 self.view?.update()
             case .failures:
                 self.view?.showCheckCacheAlert()
+            }
+        }
+    }
+    
+    func updateTable(completion: @escaping () -> Void) {
+        interactor.getListOfItems { result in
+            switch result {
+            case let .success(items):
+                self.listOfLocalItems = items
+                self.interactor.requestSaveItemsOnCache(item: items) { error in
+                    guard error == nil else {
+                        self.view?.showSaveCacheAlert()
+                        return completion()
+                    }
+                }
+                self.view?.update()
+                completion()
+            case let .failure(error):
+                self.view?.showRequestAlert()
+                completion()
             }
         }
     }

@@ -43,4 +43,21 @@ public class RemoteListOfItemsLoader {
             }
         }
     }
+    
+    public func deleteItem(withId id: Int, completion: @escaping(Bool) -> Void) {
+        client.deleteItem(from: url, withId: id) { [weak self] result in
+            guard self != nil else { return }
+            
+            switch result {
+            case let .success(_, response):
+                if response.statusCode == 200 {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            case .failure:
+                completion(false)
+            }
+        }
+    }
 }

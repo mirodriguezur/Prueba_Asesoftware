@@ -10,6 +10,8 @@ import UIKit
 
 protocol ListOfItemsViewControllerProtocol: AnyObject {
     func update()
+    func showSaveCacheAlert()
+    func showCheckCacheAlert()
 }
 
 class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProtocol {
@@ -48,6 +50,24 @@ class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProt
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    func showSaveCacheAlert() {
+        let alert = UIAlertController(title: "Error", message: "Algo paso al intentar guardar en cache la información, vuelva a intentar", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showCheckCacheAlert() {
+        let alert = UIAlertController(title: "Error", message: "No se puedo consultar la base de datos, vuelva a intentarlo", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 

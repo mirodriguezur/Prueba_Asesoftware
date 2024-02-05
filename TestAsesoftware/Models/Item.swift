@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Item: Decodable, Equatable {
+public struct Item: Codable, Equatable {
     public let albumId: Int
     public let id: Int
     public let title: String

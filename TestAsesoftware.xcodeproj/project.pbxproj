@@ -10,6 +10,9 @@
 		1C10E9972B6EA3CA006BDB4D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C10E9962B6EA3CA006BDB4D /* HTTPClient.swift */; };
 		1C10E99A2B6EB93A006BDB4D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C10E9992B6EB93A006BDB4D /* Item.swift */; };
 		1C501E712B70879800CE07A7 /* CacheListOfItemsLoaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C501E702B70879800CE07A7 /* CacheListOfItemsLoaderTest.swift */; };
+		1C501E732B70A61900CE07A7 /* CacheListOfItemsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C501E722B70A61900CE07A7 /* CacheListOfItemsLoader.swift */; };
+		1C501E752B70A66B00CE07A7 /* ItemStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C501E742B70A66B00CE07A7 /* ItemStoreProtocol.swift */; };
+		1C501E772B70A74800CE07A7 /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C501E762B70A74800CE07A7 /* ItemStore.swift */; };
 		1C81955C2B7006EE000C1D2C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81955B2B7006EE000C1D2C /* URLSessionHTTPClient.swift */; };
 		1C8195632B700E16000C1D2C /* ListOfItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8195622B700E16000C1D2C /* ListOfItemsViewController.swift */; };
 		1CDF40382B6DE3F000EC5BEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF40372B6DE3F000EC5BEC /* AppDelegate.swift */; };
@@ -53,6 +56,9 @@
 		1C10E9962B6EA3CA006BDB4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		1C10E9992B6EB93A006BDB4D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		1C501E702B70879800CE07A7 /* CacheListOfItemsLoaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheListOfItemsLoaderTest.swift; sourceTree = "<group>"; };
+		1C501E722B70A61900CE07A7 /* CacheListOfItemsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheListOfItemsLoader.swift; sourceTree = "<group>"; };
+		1C501E742B70A66B00CE07A7 /* ItemStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStoreProtocol.swift; sourceTree = "<group>"; };
+		1C501E762B70A74800CE07A7 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		1C81955B2B7006EE000C1D2C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		1C8195622B700E16000C1D2C /* ListOfItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfItemsViewController.swift; sourceTree = "<group>"; };
 		1CDF40342B6DE3F000EC5BEC /* TestAsesoftware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestAsesoftware.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +121,9 @@
 		1C1A6CEA2B70869A00AA9AF9 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				1C501E722B70A61900CE07A7 /* CacheListOfItemsLoader.swift */,
+				1C501E742B70A66B00CE07A7 /* ItemStoreProtocol.swift */,
+				1C501E762B70A74800CE07A7 /* ItemStore.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -371,13 +380,16 @@
 			files = (
 				1C10E99A2B6EB93A006BDB4D /* Item.swift in Sources */,
 				1CFBEB0D2B704A8400BC1802 /* DetailItemInteractor.swift in Sources */,
+				1C501E752B70A66B00CE07A7 /* ItemStoreProtocol.swift in Sources */,
 				1CDF40692B6DEA7100EC5BEC /* ListOfItemsPresenter.swift in Sources */,
 				1CDF40702B6DED7A00EC5BEC /* ItemEntity.swift in Sources */,
 				1CFBEB132B705DF900BC1802 /* DetailItemRouter.swift in Sources */,
 				1CDF406B2B6DEA8400EC5BEC /* ListOfItemsInteractor.swift in Sources */,
+				1C501E772B70A74800CE07A7 /* ItemStore.swift in Sources */,
 				1CFBEB072B702C0000BC1802 /* ItemTableViewCell.swift in Sources */,
 				1CDF406D2B6DEA9E00EC5BEC /* ListOfItemsRouter.swift in Sources */,
 				1C81955C2B7006EE000C1D2C /* URLSessionHTTPClient.swift in Sources */,
+				1C501E732B70A61900CE07A7 /* CacheListOfItemsLoader.swift in Sources */,
 				1C10E9972B6EA3CA006BDB4D /* HTTPClient.swift in Sources */,
 				1C8195632B700E16000C1D2C /* ListOfItemsViewController.swift in Sources */,
 				1CDF40382B6DE3F000EC5BEC /* AppDelegate.swift in Sources */,

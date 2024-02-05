@@ -25,14 +25,31 @@ class ListOfItemsPresenter: ListOfItemsPresenterInput {
     }
     
     func onViewAppear() {
-        interactor.getListOfItems { result in
-            switch result {
-            case let .success(items):
+        interactor.checkListOfItemsFromCache { [weak self] result in
+            guard let self = self else { return }
+            switch result{
+            case .empty:
+                self.interactor.getListOfItems { result in
+                    switch result {
+                    case let .success(items):
+                        self.listOfLocalItems = items
+                        self.interactor.requestSaveItemsOnCache(item: items) { error in
+                            guard error == nil else {
+                                self.view?.showSaveCacheAlert()
+                                return
+                            }
+                        }
+                        self.view?.update()
+                        break
+                    default:
+                        break
+                    }
+                }
+            case let .found(item: items):
                 self.listOfLocalItems = items
                 self.view?.update()
-                break
-            default:
-                break
+            case .failures:
+                self.view?.showCheckCacheAlert()
             }
         }
     }

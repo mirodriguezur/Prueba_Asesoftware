@@ -8,20 +8,7 @@
 import XCTest
 import TestAsesoftware
 
-public enum RetrieveCachedFeedResult {
-    case empty
-    case found(item: [Item])
-    case failure(Error)
-}
-
-protocol ItemStore {
-    
-    typealias RetrievalCompletion = (RetrieveCachedFeedResult) -> Void
-    func retrieve(completion: @escaping RetrievalCompletion)
-    func insert(_ item: [Item], completion: @escaping (Error?) -> Void)
-}
-
-class ItemStoreSpy: ItemStore {
+class ItemStoreSpy: ItemStoreProtocol {
     
     
     var respondRetrieve = false
@@ -51,46 +38,6 @@ class ItemStoreSpy: ItemStore {
     
     func completeInsertion(with error: Error, at index: Int = 0) {
         insertionCompletions[index](error)
-    }
-}
-
-class CacheListOfItemsLoader {
-    private let store: ItemStore
-    
-    public enum Error: Swift.Error {
-        case unablePerformRetrieval
-        case unableSaveData
-    }
-    
-    public enum LoadItemResult: Equatable {
-        case success([Item])
-        case failure(Error)
-    }
-    
-    init(store: ItemStore) {
-        self.store = store
-    }
-    
-    public func load(completion: @escaping (LoadItemResult) -> Void) {
-        store.retrieve { result in
-            switch result {
-            case .failure:
-                completion(.failure(.unablePerformRetrieval))
-            case .empty:
-                completion(.success([]))
-            case let .found(item: item):
-                completion(.success(item))
-            }
-        }
-    }
-    
-    public func save(_ item: [Item], completion: @escaping (Error?)-> Void) {
-        store.insert(item) {  error in
-            guard error != nil else {
-                return completion(nil)
-            }
-            completion(.unableSaveData)
-        }
     }
 }
 

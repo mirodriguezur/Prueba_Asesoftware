@@ -9,12 +9,22 @@ import Foundation
 import UIKit
 
 class ListOfItemsRouter {
+    
+    var viewController: ListOfItemsViewController?
+    
     static func createListOfItemsViewController() -> ListOfItemsViewController {
         let interactor = ListOfItemsInteractor()
-        let presenter = ListOfItemsPresenter(interactor: interactor)
+        let router = ListOfItemsRouter()
+        let presenter = ListOfItemsPresenter(interactor: interactor, router: router)
         let view = ListOfItemsViewController(presenter: presenter)
-        presenter.view = view
         
+        router.viewController = view
+        presenter.view = view
         return view
+    }
+    
+    func navigateToDetailItem(with item: ItemEntity) {
+        let detailViewController = DetailItemRouter.createItemDetailViewController(with: item)
+        self.viewController?.present(detailViewController, animated: true, completion: nil)
     }
 }

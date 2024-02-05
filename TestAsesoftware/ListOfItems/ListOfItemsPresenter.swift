@@ -10,15 +10,18 @@ import Foundation
 protocol ListOfItemsPresenterInput {
     var listOfLocalItems: [ItemEntity] { get }
     func onViewAppear()
+    func handleCellSelected(with item: ItemEntity)
 }
 
 class ListOfItemsPresenter: ListOfItemsPresenterInput {
+    private var router: ListOfItemsRouter
     weak var view: ListOfItemsViewControllerProtocol?
     private let interactor: ListOfItemsInteractorInput
     var listOfLocalItems: [ItemEntity] = []
     
-    init(interactor: ListOfItemsInteractorInput) {
+    init(interactor: ListOfItemsInteractorInput, router: ListOfItemsRouter) {
         self.interactor = interactor
+        self.router = router
     }
     
     func onViewAppear() {
@@ -32,5 +35,9 @@ class ListOfItemsPresenter: ListOfItemsPresenterInput {
                 break
             }
         }
+    }
+    
+    func handleCellSelected(with item: ItemEntity) {
+        router.navigateToDetailItem(with: item)
     }
 }

@@ -41,17 +41,17 @@ class ListOfItemsViewController: UIViewController, ListOfItemsViewControllerProt
     }
 
     private func setupView() {
-            setupTableView()
-        }
+        setupTableView()
+    }
         
-        func update() {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+    func update() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
+}
 
-extension ListOfItemsViewController: UITableViewDataSource {
+extension ListOfItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func setupTableView() {
         view.addSubview(tableView)
         registerCell()
@@ -62,6 +62,7 @@ extension ListOfItemsViewController: UITableViewDataSource {
             tableView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
         tableView.dataSource = self
+        tableView.delegate = self
     }
         
     func registerCell(){
@@ -81,6 +82,11 @@ extension ListOfItemsViewController: UITableViewDataSource {
                 
         cell.setupCell(with: itemsModel)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let itemsModel = presenter?.listOfLocalItems[indexPath.row] else { return }
+        presenter?.handleCellSelected(with: itemsModel)
     }
 }
 
